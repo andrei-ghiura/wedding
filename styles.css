@@ -1,0 +1,670 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-snap-type: y mandatory;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  color: #3f4735;
+  background-image: url('design-elements/assets/Gemini_Generated_Image_s31t3zs31t.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: #f7f3ea;
+  line-height: 1.5;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.15) 0%, rgba(107, 112, 92, 0.25) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+
+.panel {
+  position: relative;
+  min-height: 100vh;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 60px 0;
+  overflow: hidden;
+  z-index: 2;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.panel-hero {
+  min-height: 100vh;
+  min-height: 100svh;
+  height: 100vh;
+  height: 100dvh;
+}
+
+.panel-hero .overlay {
+  background: linear-gradient(180deg, rgba(248, 248, 249, 0.9), rgba(238, 238, 240, 0.9));
+}
+
+.panel-hero .content-wrap {
+  width: min(980px, 92vw);
+  min-height: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.hero-date-bg {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 80vh;
+  padding: 50px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+.hero-date-bg span {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  color: rgba(80, 84, 92, 0.12);
+  line-height: 1;
+  font-size: clamp(4.6rem, 21vh, 14rem);
+}
+
+.hero-couple {
+  position: relative;
+  z-index: 2;
+  color: #1f2228;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(8px, 1.8vw, 14px);
+}
+
+.hero-couple .couple-line {
+  display: block;
+  font: 500 clamp(3.1rem, 9.5vw, 7rem)/0.9 "WindSong", cursive;
+}
+
+.hero-couple .ampersand {
+  display: block;
+  font: 500 clamp(2.2rem, 5vw, 3.9rem)/1 "WindSong", cursive;
+  color: #2d3138;
+}
+
+.hero-vow {
+  margin: clamp(72px, 18vh, 150px) 0 0;
+  position: relative;
+  z-index: 2;
+  font: 500 clamp(1.1rem, 2.1vw, 1.9rem)/1.25 "Poppins", sans-serif;
+  color: rgba(60, 66, 74, 0.72);
+}
+
+.panel-calendar {
+  min-height: 100vh;
+  height: 100vh;
+}
+
+.panel-events {
+  min-height: 100vh;
+  height: 100vh;
+}
+
+.panel-calendar-events {
+  min-height: 100vh;
+  height: 100vh;
+}
+
+.combined-calendar-events {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  width: 100%;
+}
+
+.calendar-block {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.events-block {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.events-block .events-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.panel-family .content-wrap {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  text-align: center;
+}
+
+.panel-family .kicker {
+  grid-column: 1 / -1;
+  text-align: center;
+}
+
+.panel-family .invite-line {
+  grid-column: 1 / -1;
+  text-align: center;
+}
+
+.panel-family .family-line:nth-child(5) {
+  grid-column: 1 / -1;
+  text-align: center;
+}
+
+.panel-family .family-line:nth-of-type(2),
+.panel-family .family-line:nth-of-type(3) {
+  text-align: center;
+}
+
+.calendar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+}
+
+.calendar-month {
+  background: rgba(250, 246, 238, 0.72);
+  border: 1px solid rgba(176, 181, 162, 0.5);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 16px 34px rgba(71, 77, 58, 0.16);
+  width: 100%;
+}
+
+.calendar-month h3 {
+  margin: 0 0 16px;
+  font: 600 clamp(1.2rem, 3vw, 1.6rem)/1 "Arizonia", cursive;
+  color: #6b705c;
+  text-align: center;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+.calendar-grid > div {
+  text-align: center;
+  padding: 8px 4px;
+  font: 500 0.95rem/1 "Cormorant Garamond", serif;
+  color: #4d5640;
+}
+
+.calendar-grid > div:nth-child(1),
+.calendar-grid > div:nth-child(2),
+.calendar-grid > div:nth-child(3),
+.calendar-grid > div:nth-child(4),
+.calendar-grid > div:nth-child(5),
+.calendar-grid > div:nth-child(6),
+.calendar-grid > div:nth-child(7) {
+  font: 600 0.7rem/1 "Poppins", sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #7c816e;
+}
+
+.calendar-grid > div:nth-child(8) {
+  visibility: hidden;
+}
+
+.wedding-day {
+  color: #fff;
+  background: #6b705c;
+  border-radius: 8px;
+  font-weight: 700;
+  box-shadow: 0 0 0 3px rgba(107, 112, 92, 0.2);
+}
+
+.panel-events {
+  min-height: 100vh;
+  height: 100vh;
+}
+
+.panel-rsvp {
+  min-height: 100vh;
+  height: auto;
+  place-items: center;
+  overflow: visible;
+  padding: 72px 0;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  z-index: 1;
+}
+
+.overlay.soft {
+  background: transparent;
+}
+
+.content-wrap {
+  position: relative;
+  z-index: 2;
+  width: min(980px, 90vw);
+  text-align: center;
+}
+
+.content-wrap.narrow {
+  width: min(760px, 90vw);
+  padding: 40px 30px;
+}
+
+.save-date {
+  margin: 0;
+  font: 400 clamp(2rem, 5.5vw, 3.1rem)/1 "Arizonia", cursive;
+  color: #6b705c;
+}
+
+.save-date-num {
+  margin: 6px 0 22px;
+  font: 600 0.78rem/1 "Poppins", sans-serif;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #7c816e;
+}
+
+.kicker {
+  margin: 0 0 14px;
+  font: 600 0.78rem/1 "Poppins", sans-serif;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #6b705c;
+}
+
+.couple {
+  margin: 0;
+  font: 400 clamp(3rem, 10vw, 5.8rem)/0.95 "Arizonia", cursive;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #6b705c;
+}
+
+.couple span {
+  font: inherit;
+  color: #8d927b;
+}
+
+.invite-line {
+  margin: 20px 0 0;
+  font: 500 clamp(0.92rem, 1.8vw, 1.05rem)/1.65 "Poppins", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #535a48;
+}
+
+.family-line {
+  margin: 8px 0;
+  font: 600 clamp(1rem, 2vw, 1.15rem)/1.35 "Cormorant Garamond", serif;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #46503e;
+}
+
+.cardish {
+  background: rgba(250, 246, 238, 0.78);
+  border: 1px solid rgba(176, 181, 162, 0.5);
+  border-radius: 16px;
+  box-shadow: 0 16px 34px rgba(71, 77, 58, 0.16);
+  backdrop-filter: blur(2px);
+}
+
+.panel-date .cardish {
+  padding: 28px 20px;
+}
+
+.section-title {
+  margin: 0 0 24px;
+  font: 400 clamp(2.2rem, 6vw, 3.2rem)/1 "Arizonia", cursive;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #6b705c;
+}
+
+.countdown {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(72px, 1fr));
+  gap: 8px;
+  margin: 10px auto 22px;
+  max-width: 640px;
+}
+
+.countdown div {
+  border-radius: 10px;
+  border: 1px solid rgba(176, 181, 162, 0.5);
+  background: rgba(255, 255, 255, 0.72);
+  padding: 11px 8px;
+}
+
+.countdown strong {
+  display: block;
+  font: 700 1.45rem/1 "Cormorant Garamond", serif;
+  color: #4d5640;
+}
+
+.countdown span {
+  display: block;
+  margin-top: 4px;
+  font: 600 0.65rem/1 "Poppins", sans-serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7c816e;
+}
+
+.calendar-btn {
+  display: inline-block;
+  padding: 10px 26px;
+  border: 0;
+  border-radius: 60px;
+  text-decoration: none;
+  color: #fff;
+  background: #bdc2ac;
+  font: 600 0.9rem/1 "Poppins", sans-serif;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  box-shadow: 0 8px 20px rgba(90, 100, 78, 0.18);
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.event {
+  padding: 24px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.event-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px;
+  display: block;
+}
+
+.time {
+  margin: 0 0 12px;
+  font: 700 1.7rem/1 "Cormorant Garamond", serif;
+  color: #6b705c;
+}
+
+.event h3 {
+  margin: 0 0 8px;
+  font: 600 1.02rem/1.2 "Poppins", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #4e5741;
+}
+
+.event p {
+  margin: 0;
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #6e7662;
+}
+
+.event .location {
+  margin: 8px 0 16px;
+  font: 500 0.9rem/1 "Cormorant Garamond", serif;
+  color: #6b705c;
+}
+
+.event a {
+  display: inline-block;
+  margin-top: auto;
+  font: 600 0.75rem/1 "Poppins", sans-serif;
+  text-transform: none;
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  color: #fff;
+  background: #bdc2ac;
+  border-radius: 60px;
+  padding: 8px 16px;
+}
+
+.rsvp-note {
+  text-align: center;
+  margin: 0 0 32px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font: 500 0.86rem/1.5 "Poppins", sans-serif;
+  color: #5b634f;
+}
+
+form {
+  display: grid;
+  gap: 20px;
+}
+
+label {
+  display: grid;
+  gap: 10px;
+  font: 600 0.74rem/1 "Poppins", sans-serif;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: #4b5440;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid rgba(176, 181, 162, 0.65);
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.84);
+  color: #273021;
+  font: 500 0.95rem/1.4 "Poppins", sans-serif;
+}
+
+button {
+  border: 0;
+  border-radius: 60px;
+  padding: 12px 24px;
+  margin-top: 8px;
+  cursor: pointer;
+  background: #bdc2ac;
+  color: #fff;
+  font: 600 0.92rem/1 "Poppins", sans-serif;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.form-status {
+  min-height: 1.2em;
+  margin: 10px 0 0;
+  text-align: center;
+  color: #4f5842;
+  font: 600 0.85rem/1.2 "Poppins", sans-serif;
+}
+
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+legend {
+  font: 600 0.74rem/1 "Poppins", sans-serif;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: #4b5440;
+  margin-bottom: 10px;
+  width: 100%;
+  text-align: left;
+}
+
+.button-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.btn-choice {
+  border: 2px solid #bdc2ac;
+  border-radius: 8px;
+  padding: 10px 16px;
+  background: #fff;
+  color: #6b705c;
+  font: 600 0.85rem/1 "Poppins", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: none;
+  margin-top: 0;
+}
+
+.btn-choice:hover {
+  background: #f5f1e8;
+  border-color: #8d927b;
+}
+
+.btn-choice.active {
+  background: #bdc2ac;
+  color: #fff;
+  border-color: #bdc2ac;
+}
+
+.btn-choice.btn-small {
+  padding: 8px 14px;
+  font-size: 0.8rem;
+}
+
+.submit-btn {
+  display: block;
+  margin: 16px auto 0;
+}
+
+.conditional-section {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(176, 181, 162, 0.3);
+}
+
+#yesSection {
+  display: grid;
+  gap: 18px;
+}
+
+#yesSection.hidden {
+  display: none;
+}
+
+#yesSection > fieldset,
+#yesSection > .conditional-section {
+  margin: 0;
+}
+
+.conditional-section.hidden {
+  display: none;
+}
+
+.attending-field,
+.plus-one-field,
+.kids-field,
+.accommodation-field {
+  margin-bottom: 0;
+}
+
+.footer-note {
+  padding: 28px 20px 40px;
+  text-align: center;
+  font: 500 0.86rem/1.4 "Poppins", sans-serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6e7561;
+}
+
+@media (max-width: 760px) {
+  .events-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .countdown {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .panel-calendar {
+    height: 100vh;
+  }
+
+  .combined-calendar-events {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .calendar-month {
+    max-width: 100%;
+  }
+
+  .hero-date-bg {
+    height: 66vh;
+    padding: 24px;
+  }
+
+  .hero-date-bg span {
+    font-size: clamp(3.3rem, 14vh, 7.4rem);
+  }
+
+  .hero-couple .couple-line {
+    font-size: clamp(2.4rem, 13vw, 4.6rem);
+  }
+
+  .hero-couple .ampersand {
+    font-size: clamp(1.9rem, 7vw, 3rem);
+  }
+
+  .hero-vow {
+    margin-top: clamp(40px, 11vh, 72px);
+    font-size: clamp(0.95rem, 4.1vw, 1.25rem);
+  }
+}
+
