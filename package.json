@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "node ./scripts/build-static.mjs",
+    "postinstall": "npm run build",
     "dev": "npm run build && wrangler dev",
     "deploy": "npm run build && wrangler deploy"
   },
