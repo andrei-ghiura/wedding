@@ -2,8 +2,34 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-snap-type: y mandatory;
+:root {
+  --section-vh: 100svh;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --section-safe-top: max(16px, var(--safe-top));
+  --section-safe-bottom: max(16px, var(--safe-bottom));
+  --card-surface: rgba(250, 246, 238, 0.5);
+  --bg-photo: url('design-elements/assets/Gemini_Generated_Image_s31t3zs31t3zs31t.png');
+  --bg-atmosphere:
+    radial-gradient(115% 85% at 20% 8%, rgba(255, 233, 210, 0.5) 0%, rgba(255, 233, 210, 0) 56%),
+    radial-gradient(105% 85% at 82% 94%, rgba(178, 208, 183, 0.34) 0%, rgba(178, 208, 183, 0) 58%),
+    linear-gradient(165deg, #f4ebdf 0%, #e6eddc 52%, #f7f1e7 100%);
+  --bg-base-color: #f7f3ea;
+  --bg-veil: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.2) 0%, rgba(79, 92, 71, 0.24) 100%);
+}
+
+html::before {
+  content: '';
+  position: fixed;
+  left: -260px;
+  bottom: -280px;
+  width: 980px;
+  height: 980px;
+  background: url('pngwing.com.png') no-repeat center/contain;
+  opacity: 0.25;
+  transform: rotate(90deg);
+  pointer-events: none;
+  z-index: 1;
 }
 
 body {
@@ -11,11 +37,13 @@ body {
   margin: 0;
   font-family: "Poppins", sans-serif;
   color: #3f4735;
-  background-image: url('design-elements/assets/Gemini_Generated_Image_s31t3zs31t3zs31t.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-color: #f7f3ea;
+  background-image: var(--bg-atmosphere), var(--bg-photo);
+  background-size: cover, cover;
+  background-repeat: no-repeat, no-repeat;
+  background-position: center, center;
+  background-attachment: fixed, fixed;
+  background-color: var(--bg-base-color);
+  background-blend-mode: soft-light, multiply;
   line-height: 1.5;
 }
 
@@ -26,37 +54,172 @@ body::before {
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.15) 0%, rgba(107, 112, 92, 0.25) 100%);
+  background: var(--bg-veil);
   pointer-events: none;
   z-index: 1;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  right: -250px;
+  top: -260px;
+  width: 980px;
+  height: 980px;
+  background: url('pngwing.com.png') no-repeat center/contain;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.25;
+  transform: rotate(-90deg);
+}
+
+@keyframes ambientLeafDriftLeft {
+  0% {
+    transform: rotate(90deg) translate3d(-16px, 18px, 0) scale(0.96);
+    opacity: 0;
+  }
+
+  8% {
+    opacity: 0.24;
+  }
+
+  18% {
+    transform: rotate(96deg) translate3d(20px, -26px, 0) scale(1.01);
+    opacity: 0.34;
+  }
+
+  33% {
+    transform: rotate(88deg) translate3d(-10px, -40px, 0) scale(0.98);
+    opacity: 0.16;
+  }
+
+  46% {
+    transform: rotate(99deg) translate3d(28px, -22px, 0) scale(1.03);
+    opacity: 0.3;
+  }
+
+  58% {
+    opacity: 0;
+  }
+
+  72% {
+    transform: rotate(86deg) translate3d(-26px, 12px, 0) scale(0.95);
+    opacity: 0.2;
+  }
+
+  84% {
+    transform: rotate(94deg) translate3d(12px, -14px, 0) scale(1);
+    opacity: 0.1;
+  }
+
+  100% {
+    transform: rotate(90deg) translate3d(-16px, 18px, 0) scale(0.96);
+    opacity: 0;
+  }
+}
+
+@keyframes ambientLeafDriftRight {
+  0% {
+    transform: rotate(-90deg) translate3d(20px, -14px, 0) scale(0.95);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.2;
+  }
+
+  22% {
+    transform: rotate(-82deg) translate3d(-24px, 28px, 0) scale(1.02);
+    opacity: 0.33;
+  }
+
+  36% {
+    transform: rotate(-96deg) translate3d(14px, 42px, 0) scale(0.99);
+    opacity: 0.14;
+  }
+
+  49% {
+    transform: rotate(-84deg) translate3d(-30px, 20px, 0) scale(1.04);
+    opacity: 0.28;
+  }
+
+  63% {
+    opacity: 0;
+  }
+
+  76% {
+    transform: rotate(-98deg) translate3d(18px, -12px, 0) scale(0.97);
+    opacity: 0.22;
+  }
+
+  88% {
+    transform: rotate(-86deg) translate3d(-10px, 8px, 0) scale(1);
+    opacity: 0.08;
+  }
+
+  100% {
+    transform: rotate(-90deg) translate3d(20px, -14px, 0) scale(0.95);
+    opacity: 0;
+  }
+}
+
+html::before {
+  animation: ambientLeafDriftLeft 18s cubic-bezier(0.42, 0, 0.34, 1) infinite;
+}
+
+body::after {
+  animation: ambientLeafDriftRight 21s cubic-bezier(0.44, 0.02, 0.36, 1) infinite;
 }
 
 
 .panel {
   position: relative;
-  min-height: 100vh;
-  height: 100vh;
+  min-height: 0;
+  height: auto;
   display: grid;
-  place-items: center;
-  padding: 60px 0;
+  justify-items: center;
+  align-items: start;
+  padding: calc(44px + var(--section-safe-top)) 0 calc(44px + var(--section-safe-bottom));
   overflow: hidden;
   z-index: 2;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
 }
 
 .panel-hero {
-  min-height: 100vh;
-  min-height: 100svh;
-  height: 100vh;
-  height: 100dvh;
+  min-height: var(--section-vh);
+  height: var(--section-vh);
 }
 
 .panel-hero .overlay {
-  background: linear-gradient(180deg, rgba(248, 248, 249, 0.9), rgba(238, 238, 240, 0.9));
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.36) 44%, rgba(236, 238, 232, 0.18) 72%, rgba(220, 224, 214, 0.02) 100%),
+    linear-gradient(180deg, rgba(248, 248, 249, 0.9), rgba(238, 238, 240, 0.9));
+}
+
+.panel-hero .overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 30%, rgba(58, 63, 52, 0.08) 70%, rgba(46, 50, 42, 0.15) 100%);
+}
+
+.panel-hero .overlay::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(92vw, 920px);
+  height: min(64vh, 620px);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.74) 0%, rgba(255, 255, 255, 0.34) 48%, rgba(255, 255, 255, 0.04) 82%, rgba(255, 255, 255, 0) 100%);
 }
 
 .panel-hero .content-wrap {
+  --hero-date-height: 80vh;
+  --date-anchor-1: 10%;
+  --date-anchor-2: 50%;
+  --date-anchor-3: 90%;
   width: min(980px, 92vw);
   min-height: 100%;
   height: 100%;
@@ -67,24 +230,126 @@ body::before {
   position: relative;
 }
 
+.panel-hero .content-wrap::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: calc(clamp(10px, 2.2vh, 24px) + var(--section-safe-bottom));
+  width: 11px;
+  height: 11px;
+  transform: translate(-50%, 0) rotate(45deg);
+  border-right: 1.7px solid rgba(86, 93, 74, 0.62);
+  border-bottom: 1.7px solid rgba(86, 93, 74, 0.62);
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0;
+  animation: heroScrollReveal 0.28s ease-out 2s forwards, heroScrollCue 1.8s ease-in-out 2.3s infinite;
+}
+
+@keyframes sectionLiftIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.panel-family .content-wrap,
+.panel-calendar-events .content-wrap,
+.panel-rsvp .content-wrap {
+  animation: sectionLiftIn 0.7s ease-out both;
+}
+
+.panel-family .content-wrap {
+  animation-delay: 0.08s;
+}
+
+.panel-calendar-events .content-wrap {
+  animation-delay: 0.12s;
+}
+
+.panel-rsvp .content-wrap {
+  animation-delay: 0.16s;
+}
+
+@keyframes heroDateFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes heroNameGlideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 12px));
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes heroAmpFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes heroScrollCue {
+  0%,
+  100% {
+    transform: translate(-50%, 0) rotate(45deg);
+    opacity: 0.72;
+  }
+
+  50% {
+    transform: translate(-50%, 5px) rotate(45deg);
+    opacity: 0.72;
+  }
+}
+
+@keyframes heroScrollReveal {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 0.72;
+  }
+}
+
 .hero-date-bg {
   position: absolute;
   top: 50%;
   left: 0;
   right: 0;
-  height: 80vh;
+  height: var(--hero-date-height);
   padding: 50px;
   transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  display: block;
   pointer-events: none;
   user-select: none;
   z-index: 0;
+  animation: heroDateFadeIn 0.3s ease-out 0.6s both;
 }
 
 .hero-date-bg span {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   font-family: "Montserrat", sans-serif;
   font-weight: 300;
   letter-spacing: 0.01em;
@@ -93,48 +358,103 @@ body::before {
   font-size: clamp(4.6rem, 21vh, 14rem);
 }
 
+.hero-date-bg .n1 {
+  top: var(--date-anchor-1);
+  transform: translate(-50%, -50%);
+}
+
+.hero-date-bg .n2 {
+  top: var(--date-anchor-2);
+  transform: translate(-50%, -50%);
+}
+
+.hero-date-bg .n3 {
+  top: var(--date-anchor-3);
+  transform: translate(-50%, -50%);
+}
+
 .hero-couple {
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
   z-index: 2;
   color: #1f2228;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(8px, 1.8vw, 14px);
+  width: 100%;
+  height: var(--hero-date-height);
 }
 
 .hero-couple .couple-line {
+  position: absolute;
+  left: 50%;
+  margin: 0;
   display: block;
-  font: 500 clamp(3.1rem, 9.5vw, 7rem)/0.9 "WindSong", cursive;
+  width: min(92vw, 780px);
+  max-width: 100%;
+  white-space: normal;
+  text-align: center;
+  font: 400 clamp(3.7rem, 12.4vw, 9.2rem)/0.9 "WindSong", cursive;
+}
+
+.hero-couple .couple-line:first-of-type {
+  top: calc((var(--date-anchor-1) + var(--date-anchor-2)) / 2);
+  transform: translate(-50%, -50%);
+  animation: heroNameGlideIn 0.95s cubic-bezier(0.2, 0.7, 0.2, 1) 0.14s both;
+}
+
+.hero-couple .couple-line:last-of-type {
+  top: calc((var(--date-anchor-2) + var(--date-anchor-3)) / 2);
+  transform: translate(-50%, -50%);
+  animation: heroNameGlideIn 0.95s cubic-bezier(0.2, 0.7, 0.2, 1) 0.26s both;
 }
 
 .hero-couple .ampersand {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
   display: block;
   font: 500 clamp(2.2rem, 5vw, 3.9rem)/1 "WindSong", cursive;
   color: #2d3138;
+  animation: heroAmpFadeIn 0.85s ease-out 0.34s both;
 }
 
-.hero-vow {
-  margin: clamp(72px, 18vh, 150px) 0 0;
-  position: relative;
-  z-index: 2;
-  font: 500 clamp(1.1rem, 2.1vw, 1.9rem)/1.25 "Poppins", sans-serif;
-  color: rgba(60, 66, 74, 0.72);
+@media (prefers-reduced-motion: reduce) {
+  .hero-date-bg,
+  .hero-couple .couple-line,
+  .hero-couple .ampersand {
+    animation: none !important;
+  }
+
+  .panel-hero .content-wrap::after {
+    animation: none !important;
+  }
+
+  html::before,
+  body::after,
+  .panel-family .content-wrap,
+  .panel-calendar-events .content-wrap,
+  .panel-rsvp .content-wrap,
+  .calendar-grid > .wedding-day {
+    animation: none !important;
+  }
 }
 
 .panel-calendar {
-  min-height: 100vh;
-  height: 100vh;
+  min-height: var(--section-vh);
+  height: var(--section-vh);
 }
 
 .panel-events {
-  min-height: 100vh;
-  height: 100vh;
+  min-height: var(--section-vh);
+  height: var(--section-vh);
 }
 
 .panel-calendar-events {
-  min-height: 100vh;
-  height: 100vh;
+  min-height: 0;
+  height: auto;
 }
 
 .combined-calendar-events {
@@ -155,8 +475,72 @@ body::before {
 .events-block {
   grid-column: 1 / -1;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.events-divider {
+  width: min(980px, 98%);
+  height: 132px;
+  margin: 14px 0 24px;
+}
+
+.events-divider-bottom {
+  margin: 16px 0 0;
+  transform: rotate(180deg);
+}
+
+.events-divider,
+.family-divider {
+  background-image: url('design-elements/assets/divider-scg.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.events-divider *,
+.family-divider * {
+  display: none;
+}
+
+.events-divider path,
+.events-divider circle {
+  fill: none;
+  stroke: #98a287;
+  stroke-width: 2.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.72;
+}
+
+.events-divider circle {
+  fill: rgba(152, 162, 135, 0.24);
+}
+
+.events-divider .autumn-separator-leaf path,
+.family-divider .autumn-separator-leaf path {
+  fill: color-mix(in srgb, var(--accent-pop, #c7774b) 82%, #9a4f2a);
+  stroke: none;
+  opacity: 0.86;
+}
+
+.events-divider .autumn-separator-leaf-right path,
+.family-divider .autumn-separator-leaf-right path {
+  fill: color-mix(in srgb, var(--accent-pop, #c7774b) 65%, #b45a2e);
+  opacity: 0.76;
+}
+
+.events-divider .autumn-separator-berry,
+.family-divider .autumn-separator-berry {
+  fill: color-mix(in srgb, var(--accent-main, #5f7f5a) 30%, var(--accent-pop, #c7774b));
+  stroke: none;
+  opacity: 0.92;
+}
+
+.events-divider .autumn-separator-berry-soft,
+.family-divider .autumn-separator-berry-soft {
+  opacity: 0.62;
 }
 
 .events-block .events-grid {
@@ -167,11 +551,49 @@ body::before {
   max-width: 800px;
 }
 
+.panel-family .overlay {
+  background: transparent;
+}
+
 .panel-family .content-wrap {
   display: grid !important;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 24px;
   text-align: center;
+}
+
+.panel-family .content-wrap.narrow {
+  background: transparent;
+}
+
+.family-divider {
+  grid-column: 1 / -1;
+  width: min(920px, 98%);
+  height: 132px;
+  margin: 0 auto;
+}
+
+.family-divider-top {
+  margin-bottom: 16px;
+}
+
+.family-divider-bottom {
+  margin-top: 20px;
+  transform: rotate(180deg);
+}
+
+.family-divider path,
+.family-divider circle {
+  fill: none;
+  stroke: #98a287;
+  stroke-width: 2.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.65;
+}
+
+.family-divider circle {
+  fill: rgba(152, 162, 135, 0.2);
 }
 
 .panel-family .kicker {
@@ -184,7 +606,7 @@ body::before {
   text-align: center;
 }
 
-.panel-family .family-line:nth-child(5) {
+.panel-family .family-line-wide {
   grid-column: 1 / -1;
   text-align: center;
 }
@@ -203,7 +625,7 @@ body::before {
 }
 
 .calendar-month {
-  background: rgba(250, 246, 238, 0.72);
+  background: var(--card-surface);
   border: 1px solid rgba(176, 181, 162, 0.5);
   border-radius: 16px;
   padding: 24px;
@@ -213,7 +635,7 @@ body::before {
 
 .calendar-month h3 {
   margin: 0 0 16px;
-  font: 600 clamp(1.2rem, 3vw, 1.6rem)/1 "Arizonia", cursive;
+  font: 600 clamp(1.45rem, 3.8vw, 2.1rem)/1 "Arizonia", cursive;
   color: #6b705c;
   text-align: center;
 }
@@ -248,25 +670,37 @@ body::before {
   visibility: hidden;
 }
 
-.wedding-day {
+.calendar-grid > .wedding-day {
   color: #fff;
   background: #6b705c;
   border-radius: 8px;
   font-weight: 700;
   box-shadow: 0 0 0 3px rgba(107, 112, 92, 0.2);
+  animation: weddingGlow 2.8s ease-in-out infinite;
 }
 
-.panel-events {
-  min-height: 100vh;
-  height: 100vh;
+@keyframes weddingGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 3px rgba(107, 112, 92, 0.2), 0 0 0 rgba(199, 119, 75, 0);
+  }
+
+  50% {
+    box-shadow: 0 0 0 3px rgba(107, 112, 92, 0.3), 0 0 18px rgba(199, 119, 75, 0.3);
+  }
 }
 
 .panel-rsvp {
-  min-height: 100vh;
+  min-height: var(--section-vh);
   height: auto;
   place-items: center;
   overflow: visible;
-  padding: 72px 0;
+  padding: calc(44px + var(--section-safe-top)) 0 calc(44px + var(--section-safe-bottom));
+}
+
+.panel-rsvp .content-wrap.narrow {
+  max-height: none;
+  overflow: visible;
 }
 
 .overlay {
@@ -307,10 +741,10 @@ body::before {
 }
 
 .kicker {
-  margin: 0 0 14px;
-  font: 600 0.78rem/1 "Poppins", sans-serif;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  margin: 0 0 16px;
+  font: 600 0.88rem/1 "Poppins", sans-serif;
+  letter-spacing: 0.05em;
+  text-transform: none;
   color: #6b705c;
 }
 
@@ -329,30 +763,26 @@ body::before {
 
 .invite-line {
   margin: 20px 0 0;
-  font: 500 clamp(0.92rem, 1.8vw, 1.05rem)/1.65 "Poppins", sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  font: 500 clamp(1rem, 2.1vw, 1.2rem)/1.7 "Poppins", sans-serif;
+  text-transform: none;
+  letter-spacing: 0.03em;
   color: #535a48;
 }
 
 .family-line {
-  margin: 8px 0;
-  font: 600 clamp(1rem, 2vw, 1.15rem)/1.35 "Cormorant Garamond", serif;
+  margin: 10px 0;
+  font: 600 clamp(1.12rem, 2.4vw, 1.34rem)/1.35 "Cormorant Garamond", serif;
   letter-spacing: 0.07em;
   text-transform: uppercase;
   color: #46503e;
 }
 
 .cardish {
-  background: rgba(250, 246, 238, 0.78);
+  background: var(--card-surface);
   border: 1px solid rgba(176, 181, 162, 0.5);
   border-radius: 16px;
   box-shadow: 0 16px 34px rgba(71, 77, 58, 0.16);
   backdrop-filter: blur(2px);
-}
-
-.panel-date .cardish {
-  padding: 28px 20px;
 }
 
 .section-title {
@@ -361,50 +791,6 @@ body::before {
   letter-spacing: 0;
   text-transform: none;
   color: #6b705c;
-}
-
-.countdown {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(72px, 1fr));
-  gap: 8px;
-  margin: 10px auto 22px;
-  max-width: 640px;
-}
-
-.countdown div {
-  border-radius: 10px;
-  border: 1px solid rgba(176, 181, 162, 0.5);
-  background: rgba(255, 255, 255, 0.72);
-  padding: 11px 8px;
-}
-
-.countdown strong {
-  display: block;
-  font: 700 1.45rem/1 "Cormorant Garamond", serif;
-  color: #4d5640;
-}
-
-.countdown span {
-  display: block;
-  margin-top: 4px;
-  font: 600 0.65rem/1 "Poppins", sans-serif;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #7c816e;
-}
-
-.calendar-btn {
-  display: inline-block;
-  padding: 10px 26px;
-  border: 0;
-  border-radius: 60px;
-  text-decoration: none;
-  color: #fff;
-  background: #bdc2ac;
-  font: 600 0.9rem/1 "Poppins", sans-serif;
-  letter-spacing: 0.02em;
-  text-transform: none;
-  box-shadow: 0 8px 20px rgba(90, 100, 78, 0.18);
 }
 
 .events-grid {
@@ -420,7 +806,13 @@ body::before {
   flex-direction: column;
   align-items: center;
   height: 100%;
-  justify-content: space-between;
+  justify-content: flex-start;
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+
+.event:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(71, 77, 58, 0.2);
 }
 
 .event-icon {
@@ -442,20 +834,28 @@ body::before {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: #4e5741;
+  min-height: 2.4em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .event p {
   margin: 0;
   font-size: 0.95rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  text-transform: none;
   color: #6e7662;
 }
 
 .event .location {
   margin: 8px 0 16px;
-  font: 500 0.9rem/1 "Cormorant Garamond", serif;
+  font: 500 1.05rem/1.2 "Cormorant Garamond", serif;
   color: #6b705c;
+  min-height: 3.6em;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .event a {
@@ -474,8 +874,8 @@ body::before {
 .rsvp-note {
   text-align: center;
   margin: 0 0 32px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  text-transform: none;
   font: 500 0.86rem/1.5 "Poppins", sans-serif;
   color: #5b634f;
 }
@@ -489,8 +889,8 @@ label {
   display: grid;
   gap: 10px;
   font: 600 0.74rem/1 "Poppins", sans-serif;
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-transform: none;
   color: #4b5440;
 }
 
@@ -517,6 +917,12 @@ button {
   font: 600 0.92rem/1 "Poppins", sans-serif;
   letter-spacing: 0.02em;
   text-transform: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(89, 106, 75, 0.26);
 }
 
 .form-status {
@@ -527,6 +933,86 @@ button {
   font: 600 0.85rem/1.2 "Poppins", sans-serif;
 }
 
+.post-submit-actions {
+  min-height: 0;
+  margin-top: 12px;
+  display: grid;
+  place-items: center;
+}
+
+.calendar-btn {
+  margin-top: 0;
+}
+
+.rsvp-alt-contact {
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(176, 181, 162, 0.38);
+}
+
+.rsvp-alt-title {
+  margin: 0 0 10px;
+  color: #5d6550;
+  font: 600 0.8rem/1.35 "Poppins", sans-serif;
+  letter-spacing: 0.03em;
+}
+
+.rsvp-alt-list {
+  display: grid;
+  gap: 10px;
+}
+
+.rsvp-alt-row {
+  display: grid;
+  grid-template-columns: 74px minmax(0, 1fr) 44px;
+  gap: 8px;
+  align-items: center;
+}
+
+.rsvp-alt-name {
+  color: #5f6752;
+  font: 600 0.82rem/1 "Poppins", sans-serif;
+  text-align: left;
+}
+
+.rsvp-alt-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(176, 181, 162, 0.55);
+  background: rgba(255, 255, 255, 0.55);
+  color: #5d6550;
+  text-decoration: none;
+  font: 600 0.79rem/1.2 "Poppins", sans-serif;
+  letter-spacing: 0.01em;
+  text-align: center;
+}
+
+.rsvp-alt-phone {
+  justify-content: flex-start;
+  gap: 7px;
+  padding-inline: 12px;
+}
+
+.rsvp-alt-wa {
+  padding: 0;
+}
+
+.rsvp-alt-icon {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+  flex: 0 0 auto;
+}
+
+.rsvp-alt-link:hover {
+  background: rgba(255, 255, 255, 0.78);
+  border-color: rgba(141, 146, 123, 0.65);
+}
+
 fieldset {
   border: none;
   padding: 0;
@@ -535,8 +1021,8 @@ fieldset {
 
 legend {
   font: 600 0.74rem/1 "Poppins", sans-serif;
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-transform: none;
   color: #4b5440;
   margin-bottom: 10px;
   width: 100%;
@@ -623,17 +1109,209 @@ legend {
   color: #6e7561;
 }
 
+/* Vivid color pass */
+body {
+  color: #2f3f2f;
+  background-color: #f3efdf;
+}
+
+body::before {
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.1) 0%, rgba(101, 121, 82, 0.3) 100%);
+}
+
+.panel-hero .overlay {
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.82) 0%, rgba(250, 252, 247, 0.42) 44%, rgba(223, 232, 212, 0.22) 72%, rgba(204, 218, 189, 0.06) 100%),
+    linear-gradient(180deg, rgba(246, 248, 243, 0.92), rgba(232, 238, 226, 0.92));
+}
+
+.hero-couple,
+.hero-couple .ampersand,
+.section-title,
+.save-date,
+.kicker,
+.time,
+.calendar-month h3 {
+  color: #586c49;
+}
+
+.invite-line,
+.family-line,
+.event p,
+.event .location,
+.rsvp-note,
+.form-status,
+label,
+legend,
+.rsvp-alt-title,
+.rsvp-alt-name {
+  color: #44553f;
+}
+
+.events-divider path,
+.events-divider circle,
+.family-divider path,
+.family-divider circle {
+  stroke: #7f936c;
+}
+
+.events-divider circle,
+.family-divider circle {
+  fill: rgba(127, 147, 108, 0.26);
+}
+
+.calendar-month,
+.cardish,
+.content-wrap.narrow {
+  background: var(--card-surface);
+  border-color: rgba(137, 154, 115, 0.62);
+}
+
+.calendar-grid > .wedding-day,
+button,
+.btn-choice.active,
+.event a {
+  background: #7b9165;
+  border-color: #7b9165;
+  color: #fff;
+}
+
+.btn-choice {
+  border-color: #93a682;
+  color: #5a6e4b;
+}
+
+.btn-choice:hover,
+.event a:hover,
+button:hover {
+  background: #6d8459;
+  border-color: #6d8459;
+}
+
+input,
+select,
+textarea,
+.rsvp-alt-link {
+  border-color: rgba(137, 154, 115, 0.65);
+  color: #3f4f39;
+}
+
+@media (min-width: 961px) {
+
+  body {
+    font-size: 18px;
+  }
+
+  .hero-couple .couple-line {
+    font-size: clamp(4.8rem, 8.2vw, 10.6rem);
+    line-height: 0.92;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+  }
+
+  .hero-couple .ampersand {
+    font-size: clamp(2.6rem, 3.7vw, 4.8rem);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+  }
+
+  .hero-date-bg span {
+    font-size: clamp(6rem, 18vh, 16rem);
+    color: rgba(80, 84, 92, 0.1);
+  }
+
+  .cardish,
+  .calendar-month,
+  .content-wrap.narrow {
+    background: var(--card-surface);
+  }
+
+  .section-title {
+    font-size: clamp(2.9rem, 4.8vw, 4.4rem);
+  }
+
+  .rsvp-note,
+  .invite-line,
+  .event p,
+  .event .location {
+    font-size: 1.08rem;
+  }
+
+  .event h3 {
+    font-size: 1.1rem;
+  }
+
+  .time {
+    font-size: 2rem;
+  }
+
+  label,
+  legend {
+    font-size: 0.82rem;
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    font-size: 1rem;
+  }
+}
+
 @media (max-width: 760px) {
+  .panel {
+    padding-top: calc(24px + var(--section-safe-top));
+    padding-bottom: calc(24px + var(--section-safe-bottom));
+  }
+
+  .panel-hero {
+    min-height: var(--section-vh);
+    height: var(--section-vh);
+    overflow: hidden;
+  }
+
+  body {
+    background-attachment: scroll;
+  }
+
+  body::before {
+    position: absolute;
+  }
+
+  html::before,
+  body::after {
+    position: fixed;
+  }
+
+  html::before {
+    left: -210px;
+    bottom: -250px;
+    width: 760px;
+    height: 760px;
+    opacity: 0.18;
+  }
+
+  body::after {
+    right: -210px;
+    top: -235px;
+    width: 760px;
+    height: 760px;
+    opacity: 0.18;
+  }
+
   .events-grid {
     grid-template-columns: 1fr;
   }
 
-  .countdown {
-    grid-template-columns: repeat(2, 1fr);
+  .events-divider {
+    width: min(620px, 98%);
+    height: 94px;
+  }
+
+  .family-divider {
+    height: 94px;
   }
 
   .panel-calendar {
-    height: 100vh;
+    height: var(--section-vh);
   }
 
   .combined-calendar-events {
@@ -646,8 +1324,15 @@ legend {
   }
 
   .hero-date-bg {
-    height: 66vh;
+    height: var(--hero-date-height);
     padding: 24px;
+  }
+
+  .panel-hero .content-wrap {
+    --hero-date-height: 66vh;
+    --date-anchor-1: 11%;
+    --date-anchor-2: 50%;
+    --date-anchor-3: 89%;
   }
 
   .hero-date-bg span {
@@ -655,16 +1340,146 @@ legend {
   }
 
   .hero-couple .couple-line {
-    font-size: clamp(2.4rem, 13vw, 4.6rem);
+    width: min(88vw, 420px);
+    font-size: clamp(3.35rem, 16.2vw, 6.8rem);
+  }
+
+  .hero-couple .couple-line:first-of-type {
+    top: calc((var(--date-anchor-1) + var(--date-anchor-2)) / 2);
+    transform: translate(-50%, -50%);
+  }
+
+  .hero-couple .couple-line:last-of-type {
+    top: calc((var(--date-anchor-2) + var(--date-anchor-3)) / 2);
+    transform: translate(-50%, -50%);
   }
 
   .hero-couple .ampersand {
     font-size: clamp(1.9rem, 7vw, 3rem);
   }
 
-  .hero-vow {
-    margin-top: clamp(40px, 11vh, 72px);
-    font-size: clamp(0.95rem, 4.1vw, 1.25rem);
+  .rsvp-alt-row {
+    grid-template-columns: 68px minmax(0, 1fr) 42px;
   }
+
+}
+
+/* Active accent theme: terracotta */
+body.accent-preview-1 {
+  --accent-main: #5f7f5a;
+  --accent-deep: #2e3c2d;
+  --accent-pop: #c7774b;
+  --accent-soft: #f5efe3;
+  --accent-stroke: #7c9469;
+  --card-surface: #f5efe380;
+  --bg-atmosphere:
+    radial-gradient(115% 85% at 20% 8%, rgba(255, 226, 196, 0.52) 0%, rgba(255, 226, 196, 0) 56%),
+    radial-gradient(105% 85% at 82% 94%, rgba(177, 209, 179, 0.3) 0%, rgba(177, 209, 179, 0) 58%),
+    linear-gradient(165deg, #f5ebe0 0%, #e8efdf 52%, #f8f1e8 100%);
+  --bg-base-color: #f4eee2;
+  --bg-veil: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.22) 0%, rgba(84, 96, 72, 0.24) 100%);
+}
+
+body.accent-preview-2 {
+  --accent-main: #49695f;
+  --accent-deep: #263a34;
+  --accent-pop: #d97559;
+  --accent-soft: #f4efe7;
+  --accent-stroke: #6f978a;
+  --card-surface: #f4efe780;
+  --bg-atmosphere:
+    radial-gradient(120% 90% at 15% 12%, rgba(244, 198, 170, 0.45) 0%, rgba(244, 198, 170, 0) 54%),
+    radial-gradient(110% 88% at 88% 88%, rgba(168, 212, 196, 0.35) 0%, rgba(168, 212, 196, 0) 58%),
+    linear-gradient(168deg, #f4ece2 0%, #e2efe8 48%, #f8eee5 100%);
+  --bg-base-color: #f2ece3;
+  --bg-veil: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.2) 0%, rgba(65, 96, 86, 0.22) 100%);
+}
+
+body.accent-preview-3 {
+  --accent-main: #4a6457;
+  --accent-deep: #2f3f37;
+  --accent-pop: #cb8a60;
+  --accent-soft: #f3ede2;
+  --accent-stroke: #8a9a73;
+  --card-surface: #f3ede280;
+  --bg-atmosphere:
+    radial-gradient(125% 92% at 18% 10%, rgba(255, 220, 194, 0.44) 0%, rgba(255, 220, 194, 0) 56%),
+    radial-gradient(108% 86% at 86% 84%, rgba(206, 220, 173, 0.36) 0%, rgba(206, 220, 173, 0) 58%),
+    linear-gradient(160deg, #f5ede1 0%, #e8eed8 50%, #f8f2e9 100%);
+  --bg-base-color: #f3ede3;
+  --bg-veil: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.22) 0%, rgba(89, 102, 73, 0.23) 100%);
+}
+
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) {
+  color: var(--accent-deep);
+  background-color: var(--accent-soft);
+}
+
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .hero-couple,
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .hero-couple .ampersand,
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .section-title,
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .save-date,
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .kicker,
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .time,
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .calendar-month h3 {
+  color: var(--accent-main);
+}
+
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .invite-line,
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .family-line,
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .event p,
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .event .location,
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .rsvp-note,
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .form-status,
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) label,
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) legend,
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .rsvp-alt-title,
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .rsvp-alt-name {
+  color: var(--accent-deep);
+}
+
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .events-divider path,
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .events-divider circle,
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .family-divider path,
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .family-divider circle {
+  stroke: var(--accent-stroke);
+}
+
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .events-divider circle,
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .family-divider circle {
+  fill: color-mix(in srgb, var(--accent-stroke) 28%, transparent);
+}
+
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .calendar-month,
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .cardish,
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .content-wrap.narrow {
+  background: var(--card-surface);
+  border-color: color-mix(in srgb, var(--accent-stroke) 58%, white);
+}
+
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .calendar-grid > .wedding-day,
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .btn-choice.active,
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .event a,
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .submit-btn {
+  background: var(--accent-pop);
+  border-color: var(--accent-pop);
+  color: #fff;
+}
+
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .btn-choice {
+  border-color: color-mix(in srgb, var(--accent-main) 60%, white);
+  color: var(--accent-main);
+}
+
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .btn-choice:hover,
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .event a:hover,
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .submit-btn:hover {
+  background: color-mix(in srgb, var(--accent-pop) 88%, black);
+  border-color: color-mix(in srgb, var(--accent-pop) 88%, black);
+}
+
+body:is(.accent-preview-1, .accent-preview-2, .accent-preview-3) .panel-family .content-wrap.narrow {
+  background: transparent;
+  border-color: transparent;
 }
 
