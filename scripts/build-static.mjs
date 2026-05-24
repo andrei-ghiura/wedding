@@ -8,6 +8,7 @@ const entriesToCopy = [
   "index.html",
   "styles.css",
   "script.js",
+  "pngwing.com.png",
   "design-elements"
 ];
 
